@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,7 +31,7 @@ public class ReposService {
         return restTemplate.exchange(URL, HttpMethod.GET, null, ListRepos.class);
     }
 
-    public List<Repos> importRepositoriesBy(String language) {
+    public ListRepos importRepositoriesBy(String language) {
 
         logger.info("importing repositories data from github api");
 
@@ -43,7 +42,7 @@ public class ReposService {
         return filterRepositoriesByLanguage(githubRepositories, language);
     }
 
-    private List<Repos> filterRepositoriesByLanguage(ResponseEntity<ListRepos> githubRepositories, String language) {
+    private ListRepos filterRepositoriesByLanguage(ResponseEntity<ListRepos> githubRepositories, String language) {
 
         ListRepos listRepo = githubRepositories.getBody();
         List<Repos> filteredList = new ArrayList<>();
@@ -51,10 +50,6 @@ public class ReposService {
         logger.info(" starting filtering imported repositories for language " + language);
 
         if (listRepo != null) {
-            if (listRepo.getItems().size() == 0) {
-                listRepo.setInfo("no repositories used this language" + language);
-                logger.info("no repositories found for this language :" + language);
-            }
             try {
                 List<Repos> responseItems = listRepo.getItems();
                 for (Repos repos : responseItems) {
@@ -62,11 +57,12 @@ public class ReposService {
                         filteredList.add(repos);
                         listRepo.setInfo(" number of repositories using this language " + filteredList.size());
                     }
+                    listRepo.setItems(filteredList);
                 }
             } catch (Exception e) {
                 logger.error(" something goes wrong , cannot filter this imported list" + e);
             }
         }
-        return filteredList;
+        return listRepo;
     }
 }

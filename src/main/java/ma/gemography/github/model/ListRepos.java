@@ -1,5 +1,6 @@
 package ma.gemography.github.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class ListRepos {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
     @JsonProperty("items")
     @OneToMany(targetEntity = Repos.class)
