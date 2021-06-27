@@ -33,8 +33,6 @@ public class ReposService {
 
     public ListRepos importRepositoriesBy(String language) {
 
-        logger.info("importing repositories data from github api");
-
         ResponseEntity<ListRepos> githubRepositories = restTemplate.exchange(URL, HttpMethod.GET, null, ListRepos.class);
 
         logger.info(" fetching api data done successfully ");
@@ -59,10 +57,10 @@ public class ReposService {
                     }
                     listRepo.setItems(filteredList);
                 }
-            } catch (Exception e) {
-                logger.error(" something goes wrong , cannot filter this imported list" + e);
+            } catch (Exception ignored) {
             }
         }
+        logger.info("filtering data for language : " + language + "was done successfully");
         return listRepo;
     }
 }
