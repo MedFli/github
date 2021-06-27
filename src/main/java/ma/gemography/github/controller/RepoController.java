@@ -22,9 +22,9 @@ public class RepoController {
 
     @GetMapping(value = "/repositories/{language}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    ResponseEntity<List<Repos>> getAllRepositoriesByDate(@PathVariable(value = "language") String language) {
-        List<Repos> filteredGithubRepositories = reposService.importRepositoriesBy(language);
-        return new ResponseEntity<>(filteredGithubRepositories, HttpStatus.OK);
+    ResponseEntity<ListRepos> getAllRepositoriesByDate(@PathVariable(value = "language") String language) {
+        ListRepos filteredGithubRepositories = reposService.importRepositoriesBy(language);
+        return new ResponseEntity(filteredGithubRepositories, HttpStatus.OK);
     }
 
     @GetMapping(value = "/repositories", produces = MediaType.APPLICATION_JSON_VALUE)
