@@ -2,11 +2,19 @@
 
 ************************************************
 
-version java of gemography github coding challenge (pt1 developed in kotlin - https://github.com/MedFli/gemography)
+Java version of Gemography @Github coding challenge 
+
+(pt::1 developed in kotlin - https://github.com/MedFli/gemography)
+
+Technical stack : 
 
 - Spring boot 
 
 - Java 8 
+
+Tools : 
+
+-Intellij 
 
 this service expose 2 enpoints :
 
